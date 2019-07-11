@@ -3,7 +3,7 @@ import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import Loader from "react-loader-spinner";
-
+import {min, max, median} from 'simple-statistics'
 // import CssBaseline from "@material-ui/core/CssBaseline";
 
 import "./App.css";
@@ -33,6 +33,29 @@ class App extends Component {
     this.setState({ searchfield: event.target.value });
   };
 
+  precoMaximoListaCarros(listaFiltradaCarros) {
+    let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
+    console.log(precos);
+    if (precos.length > 0) {
+      return max(precos).toLocaleString("pt-br");
+    }else{
+      return 0;
+    }
+  }
+
+  precoMinimoListaCarros(listaFiltradaCarros) {
+    let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
+    return precos.length > 0 ? min(precos).toLocaleString("pt-br") : 0
+
+  }
+
+  precoMedianoListaCarros(listaFiltradaCarros){ 
+    let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
+    return precos.length > 0 ? median(precos).toLocaleString("pt-br") : 0
+  }
+
+
+  
   render() {
     const { robots, searchfield } = this.state;
     const filteredRobots = robots.filter(robot => {
@@ -40,16 +63,24 @@ class App extends Component {
         .toLowerCase()
         .includes(searchfield.toLowerCase());
     });
+
     return !robots.length ? (
-      <div>
-        <h1>Encontrando...</h1>
-        <Loader type="Puff" color="#00BFFF" height="200" width="200" />
+      <div className="tc">
+        <h1>procurando...</h1>
+        <Loader type="Puff" color="#00BFFF" height="300" width="300" />
       </div>
     ) : (
       <div className="tc">
-        {/* <h1 className="f1">Procure seu Carro novo</h1> */}
+        
         <SearchBox searchChange={this.onSearchChange} />
         <Scroll>
+        <div className="container">
+          <p>Existem {filteredRobots.length} carros.</p>
+              Min = R$ {this.precoMinimoListaCarros(filteredRobots)} 
+              Max = R$ {this.precoMaximoListaCarros(filteredRobots)} 
+              Median = R$ {this.precoMedianoListaCarros(filteredRobots)} 
+           
+        </div>
           <CardList robots={filteredRobots} />
         </Scroll>
       </div>

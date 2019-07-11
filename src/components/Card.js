@@ -3,7 +3,7 @@ import React from "react";
 const Card = ({ description, price, bairro, image, city, link, details }) => {
   return (
     <div className="tc grow br3 pa3 ma2 dib bw2 shadow-3 dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5">
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         <img
           src={image}
           height="200px"
