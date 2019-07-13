@@ -4,8 +4,6 @@ import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import Loader from "react-loader-spinner";
 import {min, max, median} from 'simple-statistics'
-// import CssBaseline from "@material-ui/core/CssBaseline";
-
 import "./App.css";
 
 class App extends Component {
@@ -35,18 +33,12 @@ class App extends Component {
 
   precoMaximoListaCarros(listaFiltradaCarros) {
     let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
-    console.log(precos);
-    if (precos.length > 0) {
-      return max(precos).toLocaleString("pt-br");
-    }else{
-      return 0;
-    }
+    return precos.length > 0 ? max(precos).toLocaleString("pt-br") : 0
   }
 
   precoMinimoListaCarros(listaFiltradaCarros) {
     let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
     return precos.length > 0 ? min(precos).toLocaleString("pt-br") : 0
-
   }
 
   precoMedianoListaCarros(listaFiltradaCarros){ 
@@ -54,8 +46,6 @@ class App extends Component {
     return precos.length > 0 ? median(precos).toLocaleString("pt-br") : 0
   }
 
-
-  
   render() {
     const { robots, searchfield } = this.state;
     const filteredRobots = robots.filter(robot => {
@@ -75,11 +65,11 @@ class App extends Component {
         <SearchBox searchChange={this.onSearchChange} />
         <Scroll>
         <div className="container">
-          <p>Existem {filteredRobots.length} carros.</p>
-              Min = R$ {this.precoMinimoListaCarros(filteredRobots)} 
-              Max = R$ {this.precoMaximoListaCarros(filteredRobots)} 
-              Median = R$ {this.precoMedianoListaCarros(filteredRobots)} 
-           
+          <p>Existem {filteredRobots.length} carros.
+              Menor Valor = R$ {this.precoMinimoListaCarros(filteredRobots)} ->
+               Maior Valor = R$ {this.precoMaximoListaCarros(filteredRobots)} ->
+               Mediano = R$ {this.precoMedianoListaCarros(filteredRobots)} 
+          </p>
         </div>
           <CardList robots={filteredRobots} />
         </Scroll>
