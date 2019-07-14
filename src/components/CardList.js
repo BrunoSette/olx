@@ -1,7 +1,8 @@
-import React from "react";
-import Card from "./Card";
+/* eslint-disable no-unused-vars */
+import React from 'react';
+import Card from './Card';
 
-const CardList = ({ robots }) => {
+const CardList = ({robots}) => {
   return (
     <div>
       {robots.map((description, i) => {

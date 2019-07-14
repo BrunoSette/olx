@@ -1,6 +1,7 @@
-import React from "react";
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
 
-const SearchBox = ({ searchfield, searchChange }) => {
+const SearchBox = ({searchfield, searchChange}) => {
   return (
     <div className="pa2">
       <input
