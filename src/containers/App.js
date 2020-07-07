@@ -17,7 +17,8 @@ class App extends Component {
 
   componentDidMount() {
     var proxyUrl = "https://cors-anywhere.herokuapp.com/",
-      targetUrl = "http://localhost:3000/dev/notes";
+      targetUrl =
+        "https://nxumave4x0.execute-api.us-east-1.amazonaws.com/dev/notes/";
 
     fetch(proxyUrl + targetUrl)
       .then((response) => response.json())
@@ -46,11 +47,12 @@ class App extends Component {
   }
 
   render() {
-    const { robots, searchfield } = this.state;
+    const { robots } = this.state; //    const { robots, searchfield } = this.state;
+
     const filteredRobots = robots.filter((robot) => {
-      return robot.description
-        .toLowerCase()
-        .includes(searchfield.toLowerCase());
+      return robot.description;
+      // .toLowerCase()
+      // .includes(searchfield.toLowerCase());
     });
 
     return !robots.length ? (
@@ -64,7 +66,7 @@ class App extends Component {
         <Scroll>
           <div className="container">
             <p>
-              Existem {filteredRobots.length} carros. Menor Valor = R${" "}
+              Existem {filteredRobots.length} itens. Menor Valor = R${" "}
               {this.precoMinimoListaCarros(filteredRobots)} -> Maior Valor = R${" "}
               {this.precoMaximoListaCarros(filteredRobots)} -> Mediano = R${" "}
               {this.precoMedianoListaCarros(filteredRobots)}

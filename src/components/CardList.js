@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import Card from './Card';
+import React from "react";
+import Card from "./Card";
 
-const CardList = ({robots}) => {
+const CardList = ({ robots }) => {
   return (
     <div>
       {robots.map((description, i) => {
@@ -13,9 +13,9 @@ const CardList = ({robots}) => {
             image={robots[i].image}
             price={robots[i].price}
             city={robots[i].city}
-            bairro={robots[i].bairro}
+            // bairro={robots[i].bairro}
             link={robots[i].link}
-            details={robots[i].details}
+            // details={robots[i].details}
           />
         );
       })}
