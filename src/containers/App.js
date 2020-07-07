@@ -3,7 +3,7 @@ import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import Loader from "react-loader-spinner";
-import {min, max, median} from 'simple-statistics'
+import { min, max, median } from "simple-statistics";
 import "./App.css";
 
 class App extends Component {
@@ -11,44 +11,43 @@ class App extends Component {
     super();
     this.state = {
       robots: [],
-      searchfield: ""
+      searchfield: "",
     };
   }
 
   componentDidMount() {
     var proxyUrl = "https://cors-anywhere.herokuapp.com/",
-      targetUrl =
-        "https://nb1wq4bbwb.execute-api.us-east-1.amazonaws.com/dev/notes/filter";
+      targetUrl = "http://localhost:3000/dev/notes";
 
     fetch(proxyUrl + targetUrl)
-      .then(response => response.json())
-      .then(description => {
+      .then((response) => response.json())
+      .then((description) => {
         this.setState({ robots: description });
       });
   }
 
-  onSearchChange = event => {
+  onSearchChange = (event) => {
     this.setState({ searchfield: event.target.value });
   };
 
   precoMaximoListaCarros(listaFiltradaCarros) {
-    let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
-    return precos.length > 0 ? max(precos).toLocaleString("pt-br") : 0
+    let precos = listaFiltradaCarros.map((carro) => carro.price * 1000);
+    return precos.length > 0 ? max(precos).toLocaleString("pt-br") : 0;
   }
 
   precoMinimoListaCarros(listaFiltradaCarros) {
-    let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
-    return precos.length > 0 ? min(precos).toLocaleString("pt-br") : 0
+    let precos = listaFiltradaCarros.map((carro) => carro.price * 1000);
+    return precos.length > 0 ? min(precos).toLocaleString("pt-br") : 0;
   }
 
-  precoMedianoListaCarros(listaFiltradaCarros){ 
-    let precos = listaFiltradaCarros.map(carro => carro.price * 1000);
-    return precos.length > 0 ? median(precos).toLocaleString("pt-br") : 0
+  precoMedianoListaCarros(listaFiltradaCarros) {
+    let precos = listaFiltradaCarros.map((carro) => carro.price * 1000);
+    return precos.length > 0 ? median(precos).toLocaleString("pt-br") : 0;
   }
 
   render() {
     const { robots, searchfield } = this.state;
-    const filteredRobots = robots.filter(robot => {
+    const filteredRobots = robots.filter((robot) => {
       return robot.description
         .toLowerCase()
         .includes(searchfield.toLowerCase());
@@ -61,16 +60,16 @@ class App extends Component {
       </div>
     ) : (
       <div className="tc">
-        
         <SearchBox searchChange={this.onSearchChange} />
         <Scroll>
-        <div className="container">
-          <p>Existem {filteredRobots.length} carros.
-              Menor Valor = R$ {this.precoMinimoListaCarros(filteredRobots)} ->
-               Maior Valor = R$ {this.precoMaximoListaCarros(filteredRobots)} ->
-               Mediano = R$ {this.precoMedianoListaCarros(filteredRobots)} 
-          </p>
-        </div>
+          <div className="container">
+            <p>
+              Existem {filteredRobots.length} carros. Menor Valor = R${" "}
+              {this.precoMinimoListaCarros(filteredRobots)} -> Maior Valor = R${" "}
+              {this.precoMaximoListaCarros(filteredRobots)} -> Mediano = R${" "}
+              {this.precoMedianoListaCarros(filteredRobots)}
+            </p>
+          </div>
           <CardList robots={filteredRobots} />
         </Scroll>
       </div>
