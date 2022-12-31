@@ -7,7 +7,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.2.0",
     "react-loader-spinner": "^2.3.0",
-    "react-scripts": "1.0.17",
+    "react-scripts": "5.0.1",
     "simple-statistics": "^7.1.0",
     "tachyons": "^4.9.0"
   },
